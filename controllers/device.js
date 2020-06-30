@@ -19,7 +19,7 @@ exports.insert1 = async (req, res) => {
             h = Math.floor(Math.random() * (85 - 45)) + 45;
             d = Math.floor(Math.random() * (15 - 5)) + 5;
             await pool.query(
-                `insert into metrics (time,device_id,data) values(now() - interval '${minutes} minutes','fqH8JpUdYoT4yfJc_v8ZH','{"temperature" : ${t} , "ph": ${ph} , "humidity": ${h} ,"do": ${d}}')`)
+                `insert into metrics (time,device_id,data) values(now() - interval '${minutes} minutes','ZdPTG3Z6arapWj8JulThz','{"temperature" : ${t} , "ph": ${ph} , "humidity": ${h} ,"do": ${d}}')`)
 
             minutes += 15;
         }
@@ -44,7 +44,7 @@ exports.getdata = async (req, res) => {
     try {
         const { rows } =
             await pool.query(
-                `select time,data from metrics where device_id = '${device_id}' and time > timestamp with time zone '${timestamp}' - interval '12 hours' order by time desc`)
+                `select time,data from metrics where device_id = '${device_id}' and time > timestamp with time zone '${timestamp}' - interval '24 hours' order by time desc`)
         console.log(rows)
 
         let result = rows.map(row => {
